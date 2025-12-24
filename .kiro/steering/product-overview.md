@@ -23,9 +23,9 @@ Healthmate プロダクトは4つの独立したサービスで構成されて�
 - **技術**: Amazon Bedrock AgentCore Runtime
 - **責任**: パーソナライズされた健康アドバイス、ユーザー対話
 
-### HealthmateUI サービス
+### Healthmate-Frontend サービス
 - **役割**: Webフロントエンドインターフェース
-- **技術**: FastAPI + htmx
+- **技術**: React + TypeScript + Vite
 - **責任**: ユーザーインターフェース、認証フロー、データ可視化
 
 ## Terminology Standards
@@ -33,7 +33,7 @@ Healthmate プロダクトは4つの独立したサービスで構成されて�
 ### 階層構造
 - **プロダクト**: Healthmate プロダクト（完全なソリューション）
 - **ワークスペース**: Healthmate ワークスペース（開発環境）
-- **サービス**: 個別サービス（Healthmate-Core、Healthmate-HealthManager、Healthmate-CoachAI、HealthmateUI）
+- **サービス**: 個別サービス（Healthmate-Core、Healthmate-HealthManager、Healthmate-CoachAI、Healthmate-Frontend）
 
 ### 命名規則
 - **サービス名**: 必ず「サービス」を付けて呼ぶ
@@ -44,7 +44,7 @@ Healthmate プロダクトは4つの独立したサービスで構成されて�
 
 ### データフロー
 ```
-HealthmateUI サービス
+Healthmate-Frontend サービス
     ↓ (JWT Token + User Input)
 Healthmate-CoachAI サービス  
     ↓ (MCP Protocol)
@@ -61,9 +61,9 @@ All Other Services (認証情報共有)
 ```
 
 ### 通信プロトコル
-- **UI ↔ AI**: WebSocket/Server-Sent Events（リアルタイムチャット）
+- **Frontend ↔ AI**: HTTPS API calls（AgentCore Runtime経由）
 - **AI ↔ Backend**: Model Context Protocol (MCP)
-- **UI ↔ Backend**: RESTful API（直接データ操作時）
+- **Frontend ↔ Backend**: RESTful API（直接データ操作時）
 - **All ↔ Core**: Cognito JWT Token認証
 
 ## Deployment Order
@@ -73,7 +73,7 @@ All Other Services (認証情報共有)
 1. Healthmate-Core サービス（認証基盤）
 2. Healthmate-HealthManager サービス（データ基盤）
 3. Healthmate-CoachAI サービス（AI エージェント）
-4. HealthmateUI サービス（フロントエンド）
+4. Healthmate-Frontend サービス（フロントエンド）
 ```
 
 ## 言語設定

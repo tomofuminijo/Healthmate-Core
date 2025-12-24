@@ -8,7 +8,7 @@ The Healthmate ecosystem consists of four separate workspace folders:
 Healthmate-Core/              # Authentication foundation
 Healthmate-HealthManager/     # MCP server backend
 Healthmate-CoachAI/          # AI agent
-HealthmateUI/                # Web frontend
+Healthmate-Frontend/         # React frontend
 ```
 
 ## Healthmate-Core Structure
@@ -80,32 +80,30 @@ Healthmate-CoachAI/
 └── requirements.txt            # Python dependencies
 ```
 
-## HealthmateUI Structure
+## Healthmate-Frontend Structure
 
 ```
-HealthmateUI/
-├── app/                          # FastAPI application
-│   ├── auth/                    # Authentication modules
-│   │   ├── cognito.py          # Cognito authentication client
-│   │   ├── session.py          # Session management
-│   │   ├── middleware.py       # Authentication middleware
-│   │   └── routes.py           # Authentication API routes
-│   ├── chat/                    # Chat functionality
-│   ├── models/                  # Data models
-│   │   └── auth.py             # Authentication related models
-│   └── utils/                   # Utilities
-│       ├── config.py           # Configuration management
-│       └── logger.py           # Logging setup
-├── static/                      # Static files
-│   ├── css/                    # Stylesheets
-│   └── js/                     # JavaScript
-├── templates/                   # HTML templates
-├── tests/                       # Test suites
-├── cdk/                         # AWS CDK infrastructure
-├── requirements.txt             # Python dependencies
-├── pytest.ini                  # Test configuration
-├── run_dev.py                  # Development server
-└── .env                        # Environment variables
+Healthmate-Frontend/
+├── src/                         # React application source
+│   ├── components/             # React components
+│   ├── pages/                  # Page components
+│   ├── hooks/                  # Custom React hooks
+│   ├── services/               # API service layers
+│   ├── utils/                  # Utility functions
+│   ├── types/                  # TypeScript type definitions
+│   └── main.tsx               # Application entry point
+├── public/                     # Static assets
+├── dist/                       # Build output
+├── node_modules/               # Node.js dependencies
+├── package.json                # Node.js project configuration
+├── package-lock.json           # Dependency lock file
+├── tsconfig.json               # TypeScript configuration
+├── vite.config.ts              # Vite build configuration
+├── tailwind.config.js          # Tailwind CSS configuration
+├── components.json             # shadcn/ui configuration
+├── .env                        # Environment variables
+├── .env.example                # Environment variables template
+└── README.md                   # Service documentation
 ```
 
 ## Key File Patterns
@@ -139,7 +137,7 @@ HealthmateUI/
 - **Healthmate-Core**: Authentication foundation
 - **Healthmate-HealthManager**: Backend MCP server
 - **Healthmate-CoachAI**: AI agent
-- **HealthmateUI**: Frontend application
+- **Healthmate-Frontend**: React frontend application
 
 ### AWS Resources
 - **Prefix**: `healthmate-` for all resources
@@ -167,7 +165,7 @@ HealthmateUI/
 1. **Healthmate-Core**: Deploy authentication foundation first
 2. **Healthmate-HealthManager**: Deploy MCP backend second
 3. **Healthmate-CoachAI**: Deploy agent after MCP backend
-4. **HealthmateUI**: Deploy frontend last
+4. **Healthmate-Frontend**: Deploy frontend last
 
 ### Testing Strategy
 - **Unit tests**: Fast, isolated, mocked dependencies

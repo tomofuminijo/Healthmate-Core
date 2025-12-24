@@ -8,7 +8,7 @@ Healthmate-CoachAI サービスは、Healthmate プロダクトのAI健康コー
 
 - **AI Health Coaching**: ユーザーの健康データに基づくパーソナライズされたアドバイス
 - **MCP Client**: HealthManagerMCP サービスからの健康データ取得
-- **JWT Processing**: フロントエンドから渡されるJWTトークンの処理とユーザー識別
+- **JWT Processing**: Authorization ヘッダーから渡されるJWTトークンの処理とユーザー識別
 - **Time-Aware Responses**: 現在時刻を考慮した適切なタイミングでのアドバイス
 - **Session Continuity**: AgentCore Memoryによる会話の継続性
 
@@ -102,7 +102,7 @@ def _get_config_from_cloudformation() -> dict:
 ### API Specification
 
 #### Payload Structure
-HealthmateUI サービスから送信される最適化されたペイロード：
+Healthmate-Frontend サービスから送信される最適化されたペイロード：
 
 ```json
 {
@@ -110,7 +110,6 @@ HealthmateUI サービスから送信される最適化されたペイロード�
   "sessionState": {
     "sessionAttributes": {
       "session_id": "healthmate-chat-1234567890-abcdef",
-      "jwt_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
       "timezone": "Asia/Tokyo",
       "language": "ja"
     }
@@ -118,14 +117,23 @@ HealthmateUI サービスから送信される最適化されたペイロード�
 }
 ```
 
+**注意**: JWT トークンは Authorization ヘッダーで送信されます：
+```http
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
 #### Payload Elements
 | フィールド | 必須 | 説明 |
 |-----------|------|------|
 | `prompt` | ✅ | ユーザーからのメッセージ |
 | `sessionState.sessionAttributes.session_id` | ✅ | セッション継続性のためのID（33文字以上） |
-| `sessionState.sessionAttributes.jwt_token` | ✅ | Cognito JWT トークン（user_id抽出用） |
 | `sessionState.sessionAttributes.timezone` | ⚪ | ユーザーのタイムゾーン（デフォルト: "Asia/Tokyo"） |
 | `sessionState.sessionAttributes.language` | ⚪ | ユーザーの言語設定（デフォルト: "ja"） |
+
+#### Authentication Headers
+| ヘッダー | 必須 | 説明 |
+|---------|------|------|
+| `Authorization` | ✅ | Cognito JWT Access Token（Bearer形式、user_id抽出用） |
 
 ### Session Continuity Features
 
@@ -149,7 +157,7 @@ agents:
 ### Integration Points
 
 - **HealthManagerMCP サービス**: MCP protocol for health data access
-- **HealthmateUI サービス**: JWT token passing for user identification
+- **Healthmate-Frontend サービス**: JWT token passing for user identification
 - **Healthmate-Core サービス**: Cognito authentication integration
 - **External AI Platforms**: Potential integration with other AI services
 

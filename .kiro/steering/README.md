@@ -14,7 +14,7 @@
 ### 🔧 個別サービス
 - **[healthmanager-service.md](./healthmanager-service.md)**: HealthManager MCPサーバー
 - **[coachai-service.md](./coachai-service.md)**: CoachAI エージェント
-- **[ui-service.md](./ui-service.md)**: UI フロントエンド
+- **[frontend-service.md](./frontend-service.md)**: React フロントエンド
 
 ## 重要な変更点
 
@@ -59,7 +59,7 @@ Healthmate-Core (Cognito) → 全サービス (JWT Token)
 
 ### データフロー
 ```
-HealthmateUI → HealthCoachAI → HealthManager → DynamoDB
+Healthmate-Frontend → Healthmate-CoachAI → Healthmate-HealthManager → DynamoDB
 ```
 
 ### デプロイ順序
@@ -67,7 +67,7 @@ HealthmateUI → HealthCoachAI → HealthManager → DynamoDB
 1. Healthmate-Core (認証基盤)
 2. Healthmate-HealthManager (データ基盤)  
 3. Healthmate-CoachAI (AI エージェント)
-4. HealthmateUI (フロントエンド)
+4. Healthmate-Frontend (フロントエンド)
 ```
 
 ## 開発ガイドライン
