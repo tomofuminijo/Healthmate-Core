@@ -5,6 +5,7 @@ from aws_cdk import (
     aws_cognito as cognito,
 )
 from constructs import Construct
+from .environment import EnvironmentManager, ConfigurationProvider
 
 
 class HealthmateCoreStack(Stack):
@@ -17,6 +18,10 @@ class HealthmateCoreStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        # 環境設定の初期化
+        self.config_provider = ConfigurationProvider("healthmate-core")
+        self.current_environment = EnvironmentManager.get_environment()
 
         # User Pool の作成
         self.user_pool = self._create_user_pool()
@@ -40,7 +45,7 @@ class HealthmateCoreStack(Stack):
         user_pool = cognito.UserPool(
             self,
             "HealthmateUserPool",
-            user_pool_name="Healthmate-userpool",
+            user_pool_name=f"Healthmate-userpool{self.config_provider.get_environment_suffix()}",
             # サインイン設定
             sign_in_aliases=cognito.SignInAliases(
                 email=False,
@@ -103,7 +108,7 @@ class HealthmateCoreStack(Stack):
         user_pool_domain = user_pool.add_domain(
             "UserPoolDomain",
             cognito_domain=cognito.CognitoDomainOptions(
-                domain_prefix="healthmate",  # ユニークなプレフィックスが必要
+                domain_prefix=f"healthmate{self.config_provider.get_environment_suffix()}",  # 環境別プレフィックス
             ),
         )
         
@@ -184,7 +189,7 @@ class HealthmateCoreStack(Stack):
             "UserPoolId",
             value=user_pool.user_pool_id,
             description="Cognito User Pool ID",
-            export_name="Healthmate-Core-UserPoolId"
+            export_name=f"Healthmate-UserPoolId{self.config_provider.get_environment_suffix()}"
         )
         
         # User Pool Client ID の出力
@@ -193,7 +198,7 @@ class HealthmateCoreStack(Stack):
             "UserPoolClientId", 
             value=client.user_pool_client_id,
             description="Cognito User Pool Client ID",
-            export_name="Healthmate-Core-UserPoolClientId"
+            export_name=f"Healthmate-UserPoolClientId{self.config_provider.get_environment_suffix()}"
         )
         
         # User Pool ARN の出力（追加情報として）
@@ -202,7 +207,7 @@ class HealthmateCoreStack(Stack):
             "UserPoolArn",
             value=user_pool.user_pool_arn,
             description="Cognito User Pool ARN",
-            export_name="Healthmate-Core-UserPoolArn"
+            export_name=f"Healthmate-UserPoolArn{self.config_provider.get_environment_suffix()}"
         )
         
         # User Pool Domain の出力
@@ -211,7 +216,7 @@ class HealthmateCoreStack(Stack):
             "UserPoolDomain",
             value=domain.domain_name,
             description="Cognito User Pool Domain",
-            export_name="Healthmate-Core-UserPoolDomain"
+            export_name=f"Healthmate-UserPoolDomain{self.config_provider.get_environment_suffix()}"
         )
         
         # ホストされたUIのベースURL
@@ -220,5 +225,5 @@ class HealthmateCoreStack(Stack):
             "HostedUIUrl",
             value=f"https://{domain.domain_name}.auth.{self.region}.amazoncognito.com",
             description="Cognito Hosted UI Base URL",
-            export_name="Healthmate-Core-HostedUIUrl"
+            export_name=f"Healthmate-HostedUIUrl{self.config_provider.get_environment_suffix()}"
         )
