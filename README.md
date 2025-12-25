@@ -24,6 +24,31 @@ Healthmate プロダクトの認証基盤を管理するサービスです。Ama
 
 これらの値は CloudFormation Export として他のサービスから参照可能です。
 
+## 環境設定
+
+### 対応環境
+
+Healthmate-Core は以下の3つの環境をサポートします：
+
+- **dev**: 開発環境（デフォルト）
+- **stage**: ステージング環境
+- **prod**: 本番環境
+
+### 環境変数
+
+| 変数名 | 説明 | デフォルト値 | 例 |
+|--------|------|-------------|-----|
+| `HEALTHMATE_ENV` | デプロイ環境 | `dev` | `dev`, `stage`, `prod` |
+| `AWS_REGION` | AWSリージョン | `us-west-2` | `us-west-2` |
+
+### 環境別リソース命名
+
+| 環境 | User Pool名 | Export名 | 例 |
+|------|-------------|----------|-----|
+| dev | `Healthmate-userpool-dev` | `Healthmate-Core-UserPoolId-dev` | 開発環境用 |
+| stage | `Healthmate-userpool-stage` | `Healthmate-Core-UserPoolId-stage` | ステージング環境用 |
+| prod | `Healthmate-userpool` | `Healthmate-Core-UserPoolId` | 本番環境用 |
+
 ## セットアップ
 
 ### 前提条件
@@ -48,6 +73,22 @@ pip install -r requirements.txt
 
 ## デプロイ
 
+### 環境別デプロイ
+
+```bash
+# 開発環境（デフォルト）
+export HEALTHMATE_ENV=dev
+./deploy.sh
+
+# ステージング環境
+export HEALTHMATE_ENV=stage
+./deploy.sh
+
+# 本番環境
+export HEALTHMATE_ENV=prod
+./deploy.sh
+```
+
 ### 自動デプロイ（推奨）
 
 ```bash
@@ -60,6 +101,9 @@ pip install -r requirements.txt
 ```bash
 # 仮想環境をアクティベート
 source .venv/bin/activate
+
+# 環境変数を設定（オプション）
+export HEALTHMATE_ENV=dev  # dev, stage, prod
 
 # CDK Bootstrap（初回のみ）
 cdk bootstrap
@@ -97,9 +141,25 @@ Resources:
 ```python
 from aws_cdk import Fn
 
-# CDK で参照する例
-user_pool_id = Fn.import_value("Healthmate-Core-UserPoolId")
+# CDK で参照する例（環境別）
+user_pool_id = Fn.import_value("Healthmate-Core-UserPoolId-dev")  # dev環境
+client_id = Fn.import_value("Healthmate-Core-UserPoolClientId-dev")
+
+# 本番環境の場合
+user_pool_id = Fn.import_value("Healthmate-Core-UserPoolId")  # prod環境
 client_id = Fn.import_value("Healthmate-Core-UserPoolClientId")
+```
+
+### 環境設定の確認
+
+```bash
+# 現在の環境設定を確認
+python test_environment_config.py
+
+# 環境別リソース名を確認
+aws cloudformation describe-stacks --stack-name Healthmate-CoreStack-dev
+aws cloudformation describe-stacks --stack-name Healthmate-CoreStack-stage  
+aws cloudformation describe-stacks --stack-name Healthmate-CoreStack-prod
 ```
 
 ## 開発

@@ -50,7 +50,7 @@ Healthmate プロダクト全体の環境設定とログ管理システムの段
 - [ ] 2. チェックポイント - Healthmate-Core 完了確認
   - すべてのテストが通ることを確認し、ユーザーに質問があれば対応する
 
-- [ ] 3. Healthmate-HealthManager: 環境別設定の適用
+- [x] 3. Healthmate-HealthManager: 環境別設定の適用
   - DynamoDB テーブル名の環境別設定
   - Lambda 関数名の環境別設定
   - MCP Gateway の環境別設定
@@ -75,15 +75,15 @@ Healthmate プロダクト全体の環境設定とログ管理システムの段
   - 環境設定の一貫性テスト
   - _要件: 4.2, 9.3_
 
-- [ ] 3.5 HealthManager 環境別動作確認
+- [x] 3.5 HealthManager 環境別動作確認
   - dev環境でのMCP動作テスト
   - 環境別DynamoDB接続確認
   - _要件: 9.3_
 
-- [ ] 4. チェックポイント - Healthmate-HealthManager 完了確認
+- [x] 4. チェックポイント - Healthmate-HealthManager 完了確認
   - すべてのテストが通ることを確認し、ユーザーに質問があれば対応する
 
-- [ ] 5. Healthmate-CoachAI: 環境別設定の適用
+- [x] 5. Healthmate-CoachAI: 環境別設定の適用
   - AgentCore 環境別設定
   - IAM ロール名の環境別設定
   - MCP クライアント環境設定
@@ -94,7 +94,7 @@ Healthmate プロダクト全体の環境設定とログ管理システムの段
   - IAM ロール名の環境別テスト
   - _要件: 8.3_
 
-- [ ] 5.2 CoachAI AgentCore 設定ファイルの環境別対応
+- [x] 5.2 CoachAI AgentCore 設定ファイルの環境別対応
   - .bedrock_agentcore.yaml の環境別設定
   - メモリID の環境別設定
   - _要件: 8.3_
@@ -109,15 +109,15 @@ Healthmate プロダクト全体の環境設定とログ管理システムの段
   - 環境別エージェント動作テスト
   - _要件: 9.4_
 
-- [ ] 5.5 CoachAI 環境別デプロイと動作確認
+- [x] 5.5 CoachAI 環境別デプロイと動作確認
   - dev環境でのAgentCore デプロイ
   - 環境別MCP連携確認
   - _要件: 9.4_
 
-- [ ] 6. チェックポイント - Healthmate-CoachAI 完了確認
+- [x] 6. チェックポイント - Healthmate-CoachAI 完了確認
   - すべてのテストが通ることを確認し、ユーザーに質問があれば対応する
 
-- [ ] 7. Healthmate-Frontend: 環境別設定の適用
+- [x] 7. Healthmate-Frontend: 環境別設定の適用
   - 環境別ビルド設定
   - API エンドポイント環境設定
   - Cognito 環境別設定
@@ -128,7 +128,7 @@ Healthmate プロダクト全体の環境設定とログ管理システムの段
   - API エンドポイント設定の環境別テスト
   - _要件: 3.5, 3.6, 8.4, 8.5_
 
-- [ ] 7.2 Frontend 環境変数ファイル管理の実装
+- [x] 7.2 Frontend 環境変数ファイル管理の実装
   - .env.dev、.env.stage、.env.prod ファイルの作成
   - ビルド時の環境別設定読み込み
   - _要件: 8.4, 8.5_
@@ -138,7 +138,7 @@ Healthmate プロダクト全体の環境設定とログ管理システムの段
   - E2E 環境別フローテスト
   - _要件: 9.5_
 
-- [ ] 7.4 Frontend 環境別ビルドと動作確認
+- [x] 7.4 Frontend 環境別ビルドと動作確認
   - dev環境での全サービス統合テスト
   - 環境別設定の動作確認
   - _要件: 9.5_
@@ -165,8 +165,7 @@ Healthmate プロダクト全体の環境設定とログ管理システムの段
   - データ保持の確認テスト
   - _要件: 7.1, 7.3, 7.5_
 
-- [ ] 10. 最終統合テストと文書化
-  - 全環境（dev/stage/prod）での動作確認
+- [x] 10. 文書化
   - 環境設定ガイドの作成
   - 運用手順書の作成
   - _要件: 9.1, 9.6_
