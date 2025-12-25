@@ -102,38 +102,37 @@ def _get_config_from_cloudformation() -> dict:
 ### API Specification
 
 #### Payload Structure
-Healthmate-Frontend サービスから送信される最適化されたペイロード：
+Healthmate-Frontend サービスから送信されるシンプルなフラット構造：
 
 ```json
 {
   "prompt": "ユーザーからのメッセージ",
-  "sessionState": {
-    "sessionAttributes": {
-      "session_id": "healthmate-chat-1234567890-abcdef",
-      "timezone": "Asia/Tokyo",
-      "language": "ja"
-    }
-  }
+  "timezone": "Asia/Tokyo",
+  "language": "ja"
 }
 ```
 
-**注意**: JWT トークンは Authorization ヘッダーで送信されます：
+**重要な変更**: 
+- session_id は payload から削除され、ヘッダーのみで送信
+- sessionState/sessionAttributes の階層構造を廃止し、フラット構造を採用
+
 ```http
 Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+X-Amzn-Bedrock-AgentCore-Runtime-Session-Id: healthmate-chat-1234567890-abcdef
 ```
 
 #### Payload Elements
 | フィールド | 必須 | 説明 |
 |-----------|------|------|
 | `prompt` | ✅ | ユーザーからのメッセージ |
-| `sessionState.sessionAttributes.session_id` | ✅ | セッション継続性のためのID（33文字以上） |
-| `sessionState.sessionAttributes.timezone` | ⚪ | ユーザーのタイムゾーン（デフォルト: "Asia/Tokyo"） |
-| `sessionState.sessionAttributes.language` | ⚪ | ユーザーの言語設定（デフォルト: "ja"） |
+| `timezone` | ⚪ | ユーザーのタイムゾーン（デフォルト: "Asia/Tokyo"） |
+| `language` | ⚪ | ユーザーの言語設定（デフォルト: "ja"） |
 
 #### Authentication Headers
 | ヘッダー | 必須 | 説明 |
 |---------|------|------|
 | `Authorization` | ✅ | Cognito JWT Access Token（Bearer形式、user_id抽出用） |
+| `X-Amzn-Bedrock-AgentCore-Runtime-Session-Id` | ✅ | セッション継続性のためのID（33文字以上） |
 
 ### Session Continuity Features
 
