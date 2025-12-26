@@ -35,6 +35,13 @@
 - **Static Hosting**: Amazon S3 + CloudFront
 - **Authentication**: Cognito OAuth 2.0 integration
 
+### Unified Management (Healthmate-App)
+- **Orchestration**: Bash scripts + AWS CLI
+- **Prerequisites**: Automated environment validation
+- **Deployment**: One-command deployment for all services
+- **Monitoring**: Structured logging and performance tracking
+- **Testing**: Integration test suites
+
 ## Development Tools
 
 ### Python Environment
@@ -126,6 +133,23 @@ python run_dev.py                       # Auto-configuration
 # Testing
 pytest tests/unit/ -v                   # Unit tests
 pytest tests/integration/ -v            # Integration tests
+```
+
+### Healthmate-App
+
+```bash
+# Prerequisites check
+./check_prerequisites.sh               # Validate environment
+
+# Unified deployment
+./deploy_all.sh dev                     # Deploy all services
+./deploy_all.sh prod --region ap-northeast-1  # Production deployment
+
+# Unified undeployment
+./undeploy_all.sh dev                   # Remove all services
+
+# Integration testing
+./test_integration.sh                   # Test all service interactions
 ```
 
 ## Configuration Management

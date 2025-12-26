@@ -15,6 +15,7 @@
 - **[healthmanager-service.md](./healthmanager-service.md)**: HealthManager MCPサーバー
 - **[coachai-service.md](./coachai-service.md)**: CoachAI エージェント
 - **[frontend-service.md](./frontend-service.md)**: React フロントエンド
+- **[app-service.md](./app-service.md)**: 統合デプロイメント管理
 
 ## 重要な変更点
 
@@ -70,6 +71,15 @@ Healthmate-Frontend → Healthmate-CoachAI → Healthmate-HealthManager → Dyna
 4. Healthmate-Frontend (フロントエンド)
 ```
 
+### 統合管理
+```
+Healthmate-App (統合デプロイメント管理)
+├── 前提条件チェック
+├── 一括デプロイ・アンデプロイ
+├── 依存関係管理
+└── 統合テスト
+```
+
 ## 開発ガイドライン
 
 ### Python仮想環境
@@ -107,3 +117,5 @@ flake8 .
 - **2024-12**: Healthmate-Core への中央集約化
 - **2024-12**: 日本語対応とPython仮想環境の必須化
 - **2024-12**: AgentCore Memory統合とセッション継続性の追加
+- **2024-12**: Healthmate-App統合管理サービスの追加
+- **2024-12**: プロダクト名を「Healthmate App」に統一

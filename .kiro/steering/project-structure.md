@@ -2,13 +2,14 @@
 
 ## Multi-Workspace Organization
 
-The Healthmate ecosystem consists of four separate workspace folders:
+The Healthmate App ecosystem consists of five separate workspace folders:
 
 ```
 Healthmate-Core/              # Authentication foundation
 Healthmate-HealthManager/     # MCP server backend
 Healthmate-CoachAI/          # AI agent
 Healthmate-Frontend/         # React frontend
+Healthmate-App/              # Unified deployment management
 ```
 
 ## Healthmate-Core Structure
@@ -106,6 +107,24 @@ Healthmate-Frontend/
 └── README.md                   # Service documentation
 ```
 
+## Healthmate-App Structure
+
+```
+Healthmate-App/
+├── deploy_all.sh              # Unified deployment script
+├── undeploy_all.sh            # Unified undeployment script
+├── check_prerequisites.sh     # Prerequisites validation
+├── test_integration.sh        # Integration testing
+├── lib/                       # Common libraries
+│   ├── common.sh             # Common functions and logging
+│   └── services.sh           # Service-specific operations
+├── logs/                     # Execution logs
+├── tests/                    # Test scripts
+│   └── integration/          # Integration test suites
+├── .gitignore                # Git ignore patterns
+└── README.md                 # Comprehensive documentation
+```
+
 ## Key File Patterns
 
 ### Lambda Handlers
@@ -138,6 +157,7 @@ Healthmate-Frontend/
 - **Healthmate-HealthManager**: Backend MCP server
 - **Healthmate-CoachAI**: AI agent
 - **Healthmate-Frontend**: React frontend application
+- **Healthmate-App**: Unified deployment management
 
 ### AWS Resources
 - **Prefix**: `healthmate-` for all resources
@@ -166,6 +186,12 @@ Healthmate-Frontend/
 2. **Healthmate-HealthManager**: Deploy MCP backend second
 3. **Healthmate-CoachAI**: Deploy agent after MCP backend
 4. **Healthmate-Frontend**: Deploy frontend last
+
+### Unified Management
+- **Healthmate-App**: Orchestrates deployment of all 4 services
+- **Prerequisites Check**: Validates environment before deployment
+- **Dependency Management**: Ensures correct deployment order
+- **Error Handling**: Provides retry mechanisms and detailed logging
 
 ### Testing Strategy
 - **Unit tests**: Fast, isolated, mocked dependencies
