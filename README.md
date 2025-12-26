@@ -47,7 +47,7 @@ Healthmate-Core は以下の3つの環境をサポートします：
 |------|-------------|----------|-----|
 | dev | `Healthmate-userpool-dev` | `Healthmate-Core-UserPoolId-dev` | 開発環境用 |
 | stage | `Healthmate-userpool-stage` | `Healthmate-Core-UserPoolId-stage` | ステージング環境用 |
-| prod | `Healthmate-userpool` | `Healthmate-Core-UserPoolId` | 本番環境用 |
+| prod | `Healthmate-userpool-prod` | `Healthmate-Core-UserPoolId-prod` | 本番環境用 |
 
 ## セットアップ
 
@@ -146,8 +146,8 @@ user_pool_id = Fn.import_value("Healthmate-Core-UserPoolId-dev")  # dev環境
 client_id = Fn.import_value("Healthmate-Core-UserPoolClientId-dev")
 
 # 本番環境の場合
-user_pool_id = Fn.import_value("Healthmate-Core-UserPoolId")  # prod環境
-client_id = Fn.import_value("Healthmate-Core-UserPoolClientId")
+user_pool_id = Fn.import_value("Healthmate-Core-UserPoolId-prod")  # prod環境
+client_id = Fn.import_value("Healthmate-Core-UserPoolClientId-prod")
 ```
 
 ### 環境設定の確認
